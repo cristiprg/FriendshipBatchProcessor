@@ -11,5 +11,6 @@
     <orderEntry type="library" name="org.apache.flink:flink-java:1.0.0" level="project" />
     <orderEntry type="library" name="org.apache.flink:flink-streaming-java_2.10:1.0.0" level="project" />
     <orderEntry type="library" name="org.apache.flink:flink-clients_2.10:1.0.0" level="project" />
+    <orderEntry type="library" name="org.neo4j:neo4j:2.3.3" level="project" />
   </component>
 </module>
