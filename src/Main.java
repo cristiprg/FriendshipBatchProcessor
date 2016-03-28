@@ -10,6 +10,7 @@ public class Main {
 
         System.out.println(v.getValue());
 
+        // keep in mind that the neo4j-service has to be stopped before running this thing.
         GraphDatabaseService graphDB = new GraphDatabaseFactory()
                 .newEmbeddedDatabase("/home/cristiprg/neo4jDB");
 
@@ -26,5 +27,8 @@ public class Main {
 
             tx.success();
         }
+
+        // without explicit shutdown, the service doesn't start anymore and shows no error (at least on Ubuntu)
+        graphDB.shutdown();
     }
 }
