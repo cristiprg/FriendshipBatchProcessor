@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="org.apache.flink:flink-gelly_2.10:1.0.0" type="repository">
+    <properties maven-id="org.apache.flink:flink-gelly_2.10:1.0.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/flink/flink-gelly_2.10/1.0.0/flink-gelly_2.10-1.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/flink/flink-java/1.0.0/flink-java-1.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/flink/force-shading/1.0.0/force-shading-1.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/flink/flink-clients_2.10/1.0.0/flink-clients_2.10-1.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/typesafe/akka/akka-testkit_2.10/2.3.7/akka-testkit_2.10-2.3.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/flink/flink-gelly_2.10/1.0.0/flink-gelly_2.10-1.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
