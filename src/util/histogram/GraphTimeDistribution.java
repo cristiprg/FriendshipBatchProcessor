@@ -47,6 +47,10 @@ public class GraphTimeDistribution {
         obj.put("per_month", perMonth.getJSONArray());
         return obj;
     }
+
+    public String toJSONString(){
+        return getJSON().toJSONString();
+    }
 }
 
 

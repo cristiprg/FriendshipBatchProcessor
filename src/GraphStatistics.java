@@ -44,21 +44,21 @@ public class GraphStatistics {
             }
 
             // test for now what we've done so far
-            try {
-
-                FileWriter file = new FileWriter("test.json");
-                file.write(distribution.getJSON().toJSONString());
-                file.flush();
-                file.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//
+//                FileWriter file = new FileWriter("test.json");
+//                file.write(distribution.getJSON().toJSONString());
+//                file.flush();
+//                file.close();
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
             // 2. insert STATS node
-//            Node statsNode = graphDB.createNode();
-//            statsNode.addLabel(DynamicLabel.label("facebookStats"));
-//            statsNode.setProperty("stats", distribution.toJSON().toString());
+            Node statsNode = graphDB.createNode();
+            statsNode.addLabel(DynamicLabel.label("facebookStats"));
+            statsNode.setProperty("stats", distribution.toJSONString());
 
             tx.success();
         }
