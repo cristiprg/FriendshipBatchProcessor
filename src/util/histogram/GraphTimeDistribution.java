@@ -16,10 +16,12 @@ import java.util.TreeSet;
  */
 public class GraphTimeDistribution {
     private Histogram perHour;
+    private Histogram perWeekDay;
     private CumulativeDistribution cumulativeDistribution;
 
     public GraphTimeDistribution(){
         perHour = new Histogram(24);
+        perWeekDay = new Histogram(7);
     }
 
     public void initializeCumulative(long minTimestamp, long maxTimestamp){
@@ -34,6 +36,10 @@ public class GraphTimeDistribution {
         perHour.addDataPoint(hour);
     }
 
+    public void addWeekDayPoint(int weekDay){
+        perWeekDay.addDataPoint(weekDay-1);
+    }
+
     /**
      * @return JSON in the following format:
      * {
@@ -46,6 +52,7 @@ public class GraphTimeDistribution {
         JSONObject obj = new JSONObject();
 
         obj.put("per_hour", perHour.getJSONArray());
+        obj.put("per_week_day", perWeekDay.getJSONArray());
         obj.put("cumulative", cumulativeDistribution.getJSON());
         return obj;
     }

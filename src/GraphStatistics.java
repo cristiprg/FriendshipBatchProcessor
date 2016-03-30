@@ -46,6 +46,7 @@ public class GraphStatistics {
 
                     // add stuff to the histograms
                     distribution.addHourPoint(cal.get(Calendar.HOUR_OF_DAY));
+                    distribution.addWeekDayPoint(cal.get(Calendar.DAY_OF_WEEK));
 
 
                     minTimestamp = Math.min(minTimestamp, timestamp);
