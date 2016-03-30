@@ -57,7 +57,7 @@ public class CumulativeDistribution {
         for (int i = 0; i < buckets.length; ++i){
             long timeStamp = minTimestamp + i * stepSize;
             Date time = new Date(timeStamp);
-            DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+            DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
             String stringTime = df.format(time);
             list.add(stringTime);
         }
