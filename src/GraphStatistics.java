@@ -1,3 +1,4 @@
+import org.json.simple.JSONObject;
 import org.neo4j.graphdb.*;
 import util.histogram.GraphTimeDistribution;
 
@@ -55,10 +56,13 @@ public class GraphStatistics {
 //                e.printStackTrace();
 //            }
 
-            // 2. insert STATS node
+            // 2. create the stats JSON and insert into the STATS node
+            JSONObject statsObj = new JSONObject();
+            statsObj.put("time_distribution", distribution.getJSON());
+
             Node statsNode = graphDB.createNode();
             statsNode.addLabel(DynamicLabel.label("facebookStats"));
-            statsNode.setProperty("stats", distribution.toJSONString());
+            statsNode.setProperty("stats", statsObj.toJSONString());
 
             tx.success();
         }
