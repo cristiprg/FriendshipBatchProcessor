@@ -42,9 +42,10 @@ public class CumulativeDistribution {
     }
 
     private JSONArray getBucketValuesJSONArray(){
+        int currentValue = 0;
         JSONArray list = new JSONArray();
         for(int data : buckets)
-            list.add(data);
+            list.add(currentValue += data);
 
         return list;
     }
