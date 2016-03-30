@@ -1,11 +1,13 @@
 import org.json.simple.JSONObject;
 import org.neo4j.graphdb.*;
+import util.histogram.CumulativeDistribution;
 import util.histogram.GraphTimeDistribution;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by cristiprg on 30-3-16.
@@ -22,25 +24,48 @@ public class GraphStatistics {
         GraphTimeDistribution distribution = new GraphTimeDistribution();
         try(Transaction tx = graphDB.beginTx()) {
 
+            long minTimestamp = Long.MAX_VALUE;
+            long maxTimestamp = Long.MIN_VALUE;
+
+
             // 1. compute histograms
             Label label = DynamicLabel.label("Friendship");
             try (ResourceIterator<Node> friendships = graphDB.findNodes(label)) {
 
                 while (friendships.hasNext()) {
                     // read the timestamp from the friendship node
-                    String stringDate = (String)friendships.next().getProperty("timestamp");
+                    String stringDate = (String) friendships.next().getProperty("timestamp");
 
                     // discard non-existing data
                     if (stringDate.equals("0")) continue;
 
                     // convert timestamp to calendar type
                     Calendar cal = Calendar.getInstance();
-                    cal.setTime(new Date(Long.valueOf(stringDate) * 1000L));
+                    long timestamp = Long.valueOf(stringDate) * 1000L;
+                    cal.setTime(new Date(timestamp));
 
                     // add stuff to the histograms
                     distribution.addHourPoint(cal.get(Calendar.HOUR_OF_DAY));
-                    distribution.addDayPoint(cal.get(Calendar.DAY_OF_YEAR));
-                    distribution.addMonthPoint(cal.get(Calendar.MONTH));
+
+
+                    minTimestamp = Math.min(minTimestamp, timestamp);
+                    maxTimestamp = Math.max(maxTimestamp, timestamp);
+                }
+            }
+
+            // 2nd iteration ... best trade-off
+            distribution.initializeCumulative(minTimestamp, maxTimestamp);
+            try (ResourceIterator<Node> friendships = graphDB.findNodes(label)) {
+                while (friendships.hasNext()){
+                    // read the timestamp from the friendship node
+                    String stringDate = (String) friendships.next().getProperty("timestamp");
+
+                    // discard non-existing data
+                    if (stringDate.equals("0")) continue;
+
+                    long timestamp = Long.valueOf(stringDate) * 1000L;
+
+                    distribution.addTimestampCumulative(timestamp);
                 }
             }
 

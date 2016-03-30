@@ -1,34 +1,37 @@
 package util.histogram;
 
 import org.json.simple.JSONObject;
+import org.mortbay.util.ajax.JSON;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.TreeSet;
 
 /**
  * Created by cristiprg on 30-3-16.
- * Wrapper for the three time distributions we want to compute.
+ * Wrapper for the time distribution data we want to compute.
+ *  1. Histogram - distribution per hour of the day
+ *  2. Histogram - distribution per day of the week (future feature)
+ *  3. Chart - cumulative distribution over the whole period
  */
 public class GraphTimeDistribution {
     private Histogram perHour;
-    private Histogram perDay;
-    private Histogram perMonth;
+    private CumulativeDistribution cumulativeDistribution;
 
     public GraphTimeDistribution(){
         perHour = new Histogram(24);
-        perDay = new Histogram(366+1);
-        perMonth = new Histogram(12);
+    }
+
+    public void initializeCumulative(long minTimestamp, long maxTimestamp){
+        cumulativeDistribution = new CumulativeDistribution(minTimestamp, maxTimestamp, 32);
+    }
+
+    public void addTimestampCumulative(long timestamp){
+        cumulativeDistribution.addTimestamp(timestamp);
     }
 
     public void addHourPoint(int hour){
         perHour.addDataPoint(hour);
-    }
-
-    public void addDayPoint(int day){
-        perDay.addDataPoint(day);
-    }
-
-    public void addMonthPoint(int month){
-        perMonth.addDataPoint(month);
     }
 
     /**
@@ -43,8 +46,7 @@ public class GraphTimeDistribution {
         JSONObject obj = new JSONObject();
 
         obj.put("per_hour", perHour.getJSONArray());
-        obj.put("per_day", perDay.getJSONArray());
-        obj.put("per_month", perMonth.getJSONArray());
+        obj.put("cumulative", cumulativeDistribution.getJSON());
         return obj;
     }
 
